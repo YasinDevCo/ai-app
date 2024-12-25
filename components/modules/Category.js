@@ -10,33 +10,37 @@ const categories = [
     color:
       " linear-gradient(180deg, rgba(177,181,192,1) 0%, rgba(242,113,57,1) 57%)",
     icon: cat4,
+    category_item: "code",
   },
   {
     title: "محتوای متنی و دستیار",
     color:
       "linear-gradient(180deg, rgba(177,181,192,1) 0%, rgba(57,242,174,1) 57%)",
     icon: cat3,
+    category_item: "hand",
   },
   {
     title: "تولید ویدیو",
     color:
       "linear-gradient(180deg, rgba(177,181,192,1) 0%, rgba(125,57,242,1) 57%)",
     icon: cat2,
+    category_item: "video",
   },
   {
     title: "تولید تصویر",
     color:
       "linear-gradient(180deg, rgba(177,181,192,1) 0%, rgba(233,242,57,1) 57%)",
     icon: cat1,
+    category_item: "pic",
   },
 ];
 
 function Category() {
   return (
     <div className="flex flex-col w-full gap-10 px-4">
-     <h3 className="my-6 text-4xl text-center text-transparent transition-all duration-700 transform shadow-2xl sm:text-5xl md:text-6xl bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text font-extralight animate-pulse-move hover:scale-105 hover:rotate-3 hover:shadow-3xl hover:text-rose-400">
-  دسته‌بندی‌ها
-</h3>
+      <h3 className="my-6 text-4xl text-center text-transparent transition-all duration-700 transform shadow-2xl sm:text-5xl md:text-6xl bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text font-extralight animate-pulse-move hover:scale-105 hover:rotate-3 hover:shadow-3xl hover:text-rose-400">
+        دسته‌بندی‌ها
+      </h3>
 
       <div className="flex flex-wrap justify-center gap-5 mb-16">
         {categories.map((cat, index) => (
