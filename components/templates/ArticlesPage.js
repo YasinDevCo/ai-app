@@ -11,7 +11,7 @@ const categories = [
     title: "کدنویسی",
     color:
       "linear-gradient(180deg, rgba(177,181,192,1) 0%, rgba(242,113,57,1) 57%)",
-    icon: cat4,
+    icon: cat2,
     category_item: "code",
   },
   {
@@ -25,22 +25,20 @@ const categories = [
     title: "ویدیو",
     color:
       "linear-gradient(180deg, rgba(177,181,192,1) 0%, rgba(125,57,242,1) 57%)",
-    icon: cat2,
+    icon: cat1,
     category_item: "video",
   },
   {
     title: "تصویر",
     color:
       "linear-gradient(180deg, rgba(177,181,192,1) 0%, rgba(233,242,57,1) 57%)",
-    icon: cat1,
+    icon: cat4,
     category_item: "pic",
   },
 ];
 
 function ArticlesPage({ articles }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
-
-  // فیلتر مقالات براساس دسته‌بندی
   const filteredArticles =
     selectedCategory === "all"
       ? articles
