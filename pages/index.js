@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 export default function Home() {
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

@@ -1,37 +1,83 @@
-import { articles } from "@/data/data";
+import Article from "@/models/Articles";
+import connectDB from "@/utils/connectDB";
 
-export default function handler(req, res) {
-  switch (req.method) {
-    case "GET":
-      res.status(200).json(articles);
-      break;
-    case "POST":
-      const { todo } = req.body;
-      // store data in db
-      const newTodo = {
-        id: articles.length + 1,
-        title: todo,
-      };
+export default async function handler(req, res) {
+
+  //--------------------------GET
+  if (req.method === "GET") {
+    // اتصال به پایگاه داده
+    try {
+      await connectDB(); // اتصال به پایگاه داده
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        status: "failed",
+        message: "!------- Error in connecting to DB -------!",
+        error: err,
+      });
+    }
+    try {
+      const articles = await Article.find();
+      res.status(200).json({
+        status: "success",
+        message: "!------- Data fetched successfully -------!",
+        data: articles,
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        status: "failed",
+        message: "!------- Error in fetching data -------!",
+        error: err,
+      });
+    }
+    //--------------------------POST
+  } else if (req.method === "POST") {
+    const data = req.body.data;
+
+    if (
+      !data.title ||
+      !data.content ||
+      !data.category_item ||
+      !data.logo ||
+      !data.train ||
+      !data.status
+    ) {
+      return res.status(400).json({
+        status: "failed",
+        message: "!------- Invalid Data -------!",
+      });
+    }
+    // اتصال به پایگاه داده
+    try {
+      await connectDB(); // اتصال به پایگاه داده
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        status: "failed",
+        message: "!------- Error in connecting to DB -------!",
+        error: err,
+      });
+    }
+    try {
+      const article = await Article.create(data);
       res.status(201).json({
-        message: "succes",
-        data: newTodo,
+        status: "success",
+        message: "!------- Data created in DB -------!",
+        data: article,
       });
-      break;
-    case "DELETE":
-      // delete data in db
-      res.status(200).json({
-        message: "all articles delete",
-        data: [],
+    } catch (err) {
+      console.log("Error during saving article:", err);
+      res.status(500).json({
+        status: "failed",
+        message: "!------- Error in Storing in DB -------!",
+        error: err,
       });
-      break;
-    case "PUT":
-      // delete data in db
-      res.status(200).json({
-        message: "all articles replace",
-        data: req.body,
-      });
-      break;
-    default:
-      break;
+    }
+  } else {
+    res.status(405).json({
+      status: "failed",
+      message: "!------- Method Not Allowed -------!",
+    });
   }
 }

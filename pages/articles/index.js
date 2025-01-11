@@ -8,7 +8,7 @@ function index() {
     async function fetchData() {
       const res = await fetch("/api/articles");
       const data = await res.json();
-      setArticles(data);
+      setArticles(data.data);
     }
     fetchData();
   }, []);
@@ -23,6 +23,7 @@ function index() {
         />
       </div>
     );
+console.log(articles.data);
 
   return (
     <>

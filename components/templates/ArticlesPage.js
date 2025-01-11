@@ -38,6 +38,7 @@ const categories = [
 ];
 
 function ArticlesPage({ articles }) {
+  console.log(articles);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const filteredArticles =
     selectedCategory === "all"

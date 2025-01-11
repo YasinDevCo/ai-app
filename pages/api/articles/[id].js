@@ -1,21 +1,20 @@
-import { articles } from "@/data/data";
+import Article from "@/models/Articles";
 
+export default async function handler(req, res) {
 
-export default function handler(req, res) {
-  const { id } = req.query;
-  switch (req.method) {
-    case "GET":
-      const article = articles.find((article) => article.id == +id);
-      res.status(200).json(article);
-      break;
-    case "PATCH":
-      const { title } = req.body;
-      const index = articles.findIndex((article) => article.id == +id);
-      article[index] = { id: +id, title };
-      res.status(200).json(article[index], article);
-
-      break;
-    default:
-      break;
+ 
+  if (req.method === "GET") {
+   
+    const id = req.query.id;
+    try {
+      const article = await Article.findOne({ _id: id });
+      res.status(200).json({ status: "success", data: article });
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).json({
+        status: "failed",
+        message: "Error in retrieving data from database",
+      });
+    }
   }
 }
